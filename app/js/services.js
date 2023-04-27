@@ -111,6 +111,7 @@ sequenceDialogService.factory("SequenceEditor", [
     return {
       counter: -1,
 
+      // Argumentos esperados para editar uma sequência
       editSequence: function (editId, editSeq, sequences) {
         var REGEX = /\S{4,}|[^AGCT\s]|((^|\s)\S{1,2}($|\s))/;
 
