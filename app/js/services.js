@@ -176,7 +176,7 @@ dialogService.factory("Dialog", [
         global.seqError = false;
         global.dialogOpen = true;
 
-        if (seqId) {
+        if (typeof(seqId) === 'number') {
           global.id = seqId;
           global.editSeq = angular.copy(sequences[seqId]);
           global.deleteDisable = false;
