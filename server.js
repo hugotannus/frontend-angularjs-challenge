@@ -47,10 +47,12 @@ app.post("/report.txt", function (req, res) {
   wstream.end();
 });
 
-app.get("/report.txt", function (req, res) {
+app.get("/report.txt", function (_req, res) {
   res.type("text");
-  res.download(__dirname + "/" + filename, "report.txt", function (err) {
-    if (!err) console.log("Download report");
-    fs.unlink(__dirname + "/" + filename);
+
+  var filepath = [__dirname, filename].join('/');
+  res.download(filepath, "report.txt", function (err) {
+    if (!err) console.error("Download report");
+    fs.unlink(filepath, err => err && console.err(err));
   });
 });
