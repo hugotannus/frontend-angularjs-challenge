@@ -104,8 +104,13 @@ MinIONApp.controller("SequenceListCtrl", [
     };
 
     $scope.editSequence = function (seqId, seqEdit) {
-      SequenceEditor.editSequence(seqId, seqEdit, $scope.sequences);
-      $scope.dialogClose();
+      const seqEdited = SequenceEditor.editSequence(seqId, seqEdit, $scope.sequences);
+
+      if (!seqEdited) {
+        $scope.global.seqError = true;
+      } else {
+        $scope.dialogClose();
+      }
     };
 
     $scope.remove = function (removeId) {
