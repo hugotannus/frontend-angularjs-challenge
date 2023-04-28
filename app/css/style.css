@@ -1,5 +1,7 @@
 html {
+	font-size: 16px;
 }
+
 body {
 	padding:3.5% 0;
 	margin:0;
@@ -17,10 +19,11 @@ main {
 	margin-right:auto;
 	border: solid 3px black;
 	width:80%;
-	//padding:2em;
+	/* padding:2em; */
 	padding:2%;
 	vertical-align:middle;
 }
+
 input.b {
 	background:rgba(255,255,255,.0);
 	border:white 1px solid;
@@ -34,6 +37,12 @@ input.b {
 	margin-left:2em;
 	font-family:Roboto,sans-serif;
 }
+input[type="button"]:disabled {
+	opacity: 0.3;
+	pointer-events: none;
+	cursor: pointer;
+}
+
 .chartContainer {
 	display:inline-block;
 	width:45%;
@@ -60,7 +69,7 @@ input.b {
 	font-size:1.5em;
 }
 .mainContainer {
-	//border: 2px solid black;
+	/* border: 2px solid black; */
 	min-height:15em;
 	overflow:hidden;
 	text-align:center;
@@ -102,7 +111,7 @@ ul {
 	background:rgba(255,255,255,0);
 	border:solid 1px white;
 	transition: background .2s;
-	vertical-align:middle;
+	/* vertical-align:middle; */
 	padding:.5em;
 }
 .tbody > div {
@@ -114,7 +123,7 @@ ul {
 	width:55%;
 }
 .paddingHack {
-	display:block:
+	display:block;
 	width:13%;
 	position:relative;
 	height:0;
