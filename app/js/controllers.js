@@ -103,8 +103,9 @@ MinIONApp.controller("SequenceListCtrl", [
       return Dialog.close($scope.global);
     };
 
-    $scope.editSequence = function () {
-      alert("Implementar edição");
+    $scope.editSequence = function (seqId, seqEdit) {
+      SequenceEditor.editSequence(seqId, seqEdit, $scope.sequences);
+      $scope.dialogClose();
     };
 
     $scope.remove = function (removeId) {

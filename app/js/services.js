@@ -111,6 +111,7 @@ sequenceDialogService.factory("SequenceEditor", [
     return {
       counter: -1,
 
+      // Argumentos esperados para editar uma sequência
       editSequence: function (editId, editSeq, sequences) {
         var REGEX = /\S{4,}|[^AGCT\s]|((^|\s)\S{1,2}($|\s))/;
 
@@ -122,7 +123,11 @@ sequenceDialogService.factory("SequenceEditor", [
           if (this.counter === -1) this.counter = sequences.length;
 
           editSeq.color = Color.get(++this.counter);
-        } else sequences[editId] = angular.copy(editSeq);
+
+          sequences.push(angular.copy(editSeq));
+        } else {
+          sequences[editId] = angular.copy(editSeq);
+        }
 
         return true;
       },
@@ -176,12 +181,19 @@ dialogService.factory("Dialog", [
         global.seqError = false;
         global.dialogOpen = true;
 
-        if (seqId) {
+        if (typeof(seqId) === 'number') {
           global.id = seqId;
           global.editSeq = angular.copy(sequences[seqId]);
           global.deleteDisable = false;
         } else {
-          return alert("Implementar Adição");
+          global.id = -1;
+          global.deleteDisable = true;
+          global.editSeq = {
+            name: "",
+            structure: "",
+            rate: 0,
+            prob: 0
+          }
         }
 
         this.openedDialog = ngDialog.open({
