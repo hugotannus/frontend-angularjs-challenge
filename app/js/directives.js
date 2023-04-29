@@ -122,8 +122,8 @@ MinIONApp.directive("barsChart", function ($parse) {
 });
 
 MinIONApp.directive("minionRectangle", [
-  "Color",
-  function (Color) {
+  "colorService",
+  function (colorService) {
     return {
       restrict: "AE",
       replace: true,

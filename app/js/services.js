@@ -1,8 +1,7 @@
 var dataSupplierService = angular.module("dataSupplierService", []);
 var sequenceMatcherService = angular.module("sequenceMatcherService", []);
-var colorService = angular.module("colorService", []);
 var sequenceDialogService = angular.module("sequenceDialogService", [
-  "colorService",
+  "colors",
 ]);
 var backendService = angular.module("backendService", ["ngResource"]);
 var dataCollectionService = angular.module("dataCollectionService", [
@@ -97,17 +96,9 @@ sequenceMatcherService.factory("SequenceMatcher", [
   },
 ]);
 
-colorService.factory("Color", [
-  function () {
-    return {
-      get: d3.scale.category20(),
-    };
-  },
-]);
-
 sequenceDialogService.factory("SequenceEditor", [
-  "Color",
-  function (Color) {
+  "colorService",
+  function (colorService) {
     return {
       counter: -1,
 
@@ -122,7 +113,7 @@ sequenceDialogService.factory("SequenceEditor", [
         if (editId === -1) {
           if (this.counter === -1) this.counter = sequences.length;
 
-          editSeq.color = Color.get(++this.counter);
+          editSeq.color = colorService.get(++this.counter);
 
           sequences.push(angular.copy(editSeq));
         } else {
@@ -139,9 +130,9 @@ backendService.factory("BackendConnection", [
   "$resource",
   "$filter",
   "$window",
-  "Color",
+  "colorService",
   "$http",
-  function ($resource, $filter, $window, Color, $http) {
+  function ($resource, $filter, $window, colorService, $http) {
     return {
       Data: $resource("strands/strands.json"),
       save: function (sequences, counter) {
@@ -160,7 +151,7 @@ backendService.factory("BackendConnection", [
           angular.forEach(
             data,
             function (value, key) {
-              this[key].color = Color.get(key);
+              this[key].color = colorService.get(key);
             },
             data
           );
@@ -181,7 +172,7 @@ dialogService.factory("Dialog", [
         global.seqError = false;
         global.dialogOpen = true;
 
-        if (typeof(seqId) === 'number') {
+        if (typeof (seqId) === 'number') {
           global.id = seqId;
           global.editSeq = angular.copy(sequences[seqId]);
           global.deleteDisable = false;
