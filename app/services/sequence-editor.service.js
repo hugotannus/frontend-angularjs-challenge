@@ -8,12 +8,17 @@
   sequenceEditor.$inject = ['colorService']
 
   function sequenceEditor(colorService) {
-    var counter = -1;
+    const self = this;
 
-    return {
-      counter: counter,
+    self.counter = -1;
+
+    const service = {
+      counter: self.counter,
+      getCounter: getCounter,
       editSequence: editSequence
     }
+
+    return service;
 
     ///////////////////////////////////////
 
@@ -25,9 +30,9 @@
       if (REGEX.test(editSeq.structure)) return false;
 
       if (editId === -1) {
-        if (counter === -1) counter = sequences.length;
+        if (self.counter === -1) self.counter = sequences.length;
 
-        editSeq.color = colorService.get(++counter);
+        editSeq.color = colorService.get(++self.counter);
 
         sequences.push(angular.copy(editSeq));
       } else {
@@ -36,5 +41,9 @@
 
       return true;
     };
+
+    function getCounter() {
+      return self.counter;
+    }
   }
 }());
