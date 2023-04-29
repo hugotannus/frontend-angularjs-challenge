@@ -9,18 +9,10 @@
     var weightsData = [];
 
     return {
-      getBit: getBit,
       getBuffer: getBuffer,
-      getChunk: getChunk,
-      weight: weight,
-      weights: weightsData,
     }
 
     /////////////
-
-    function getBit() {
-      return weight(Math.random());
-    };
 
     function getBuffer(bufferSize, weights) {
       weightsData = weights;
@@ -29,6 +21,12 @@
       for (i = 0; i < bufferSize; i++) buffer += getChunk();
 
       return buffer;
+    };
+
+    // #region Private Functions
+
+    function getBit() {
+      return weight(Math.random());
     };
 
     function getChunk() {
@@ -48,5 +46,7 @@
 
       return i - 1;
     };
+
+    // #endregion
   }
 }());
