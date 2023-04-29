@@ -62,7 +62,7 @@ MinIONApp.directive("barsChart", function ($parse) {
           var currentDomain = y.domain()[1];
 
           if ((a = currentDomain < max) || currentDomain > max * 2.1) {
-            if (a) y.domain([0, currentDomain * 2]);
+            if (a) y.domain([currentDomain * 0.92, currentDomain * 1.04]);
             else y.domain([0, currentDomain / 2]);
 
             chart.select("g.grid").selectAll("*").remove();
