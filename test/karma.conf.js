@@ -10,6 +10,7 @@ module.exports = function (config) {
       'test/unit/*.js',
       'app/bower_components/d3/d3.js',
       'app/js/*.js',
+      'app/directives/*.js',
       'app/lib/*.js',
       'app/services/*.js',
     ],
