@@ -22,7 +22,7 @@ MinIONApp.controller("SequenceListCtrl", [
   "SequenceMatcher",
   "$window",
   "$filter",
-  "Color",
+  "colorService",
   "SequenceEditor",
   "BackendConnection",
   "DataCollection",
@@ -36,7 +36,7 @@ MinIONApp.controller("SequenceListCtrl", [
     SequenceMatcher,
     $window,
     $filter,
-    Color,
+    colorService,
     SequenceEditor,
     BackendConnection,
     DataCollection

@@ -97,7 +97,7 @@ sequenceMatcherService.factory("SequenceMatcher", [
   },
 ]);
 
-colors.factory("Color", [
+colors.factory("colorService", [
   function () {
     return {
       get: d3.scale.category20(),
@@ -106,8 +106,8 @@ colors.factory("Color", [
 ]);
 
 sequenceDialogService.factory("SequenceEditor", [
-  "Color",
-  function (Color) {
+  "colorService",
+  function (colorService) {
     return {
       counter: -1,
 
@@ -122,7 +122,7 @@ sequenceDialogService.factory("SequenceEditor", [
         if (editId === -1) {
           if (this.counter === -1) this.counter = sequences.length;
 
-          editSeq.color = Color.get(++this.counter);
+          editSeq.color = colorService.get(++this.counter);
 
           sequences.push(angular.copy(editSeq));
         } else {
@@ -139,9 +139,9 @@ backendService.factory("BackendConnection", [
   "$resource",
   "$filter",
   "$window",
-  "Color",
+  "colorService",
   "$http",
-  function ($resource, $filter, $window, Color, $http) {
+  function ($resource, $filter, $window, colorService, $http) {
     return {
       Data: $resource("strands/strands.json"),
       save: function (sequences, counter) {
@@ -160,7 +160,7 @@ backendService.factory("BackendConnection", [
           angular.forEach(
             data,
             function (value, key) {
-              this[key].color = Color.get(key);
+              this[key].color = colorService.get(key);
             },
             data
           );

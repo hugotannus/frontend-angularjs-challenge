@@ -232,7 +232,7 @@ describe('MinIONApp controllers', function() {
 	beforeEach(module('dataCollectionService'));
 	beforeEach(module('ngResource'));
 
-	beforeEach(inject(function($controller, $rootScope, ngDialog, $http, DataChunk, _$interval_, transcriberFilter, SequenceMatcher, $window, $filter, Color, SequenceEditor, BackendConnection, DataCollection, $compile, _$httpBackend_) {
+	beforeEach(inject(function($controller, $rootScope, ngDialog, $http, DataChunk, _$interval_, transcriberFilter, SequenceMatcher, $window, $filter, colorService, SequenceEditor, BackendConnection, DataCollection, $compile, _$httpBackend_) {
 
 			$interval = _$interval_
 			$httpBackend = _$httpBackend_
