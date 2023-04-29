@@ -3,7 +3,7 @@
 
   angular
     .module("sequenceDialogService", ["colors"])
-    .factory("SequenceEditor", sequenceEditor);
+    .factory("sequenceEditor", sequenceEditor);
 
   sequenceEditor.$inject = ['colorService']
 
