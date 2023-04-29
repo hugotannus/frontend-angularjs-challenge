@@ -4,7 +4,6 @@ var dataCollectionService = angular.module("dataCollectionService", [
   "MinIONAppFilters",
   "dataSupplierService",
 ]);
-var dialogService = angular.module("dialogService", ["ngDialog"]);
 
 dataCollectionService.factory("DataCollection", [
   "$interval",
@@ -71,46 +70,6 @@ backendService.factory("BackendConnection", [
         });
 
         return data;
-      },
-    };
-  },
-]);
-
-dialogService.factory("Dialog", [
-  "ngDialog",
-  function (ngDialog) {
-    return {
-      openedDialog: "",
-      open: function (seqId, global, sequences, scope) {
-        global.seqError = false;
-        global.dialogOpen = true;
-
-        if (typeof (seqId) === 'number') {
-          global.id = seqId;
-          global.editSeq = angular.copy(sequences[seqId]);
-          global.deleteDisable = false;
-        } else {
-          global.id = -1;
-          global.deleteDisable = true;
-          global.editSeq = {
-            name: "",
-            structure: "",
-            rate: 0,
-            prob: 0
-          }
-        }
-
-        this.openedDialog = ngDialog.open({
-          template: "popup.html",
-          className: "ngdialog-theme-default",
-          scope: scope,
-        });
-      },
-      close: function (global) {
-        this.openedDialog.close();
-        global.dialogOpen = false;
-
-        return true;
       },
     };
   },
