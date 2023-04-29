@@ -1,6 +1,5 @@
 var dataSupplierService = angular.module("dataSupplierService", []);
 var sequenceMatcherService = angular.module("sequenceMatcherService", []);
-var colors = angular.module("colors", []);
 var sequenceDialogService = angular.module("sequenceDialogService", [
   "colors",
 ]);
@@ -97,14 +96,6 @@ sequenceMatcherService.factory("SequenceMatcher", [
   },
 ]);
 
-colors.factory("colorService", [
-  function () {
-    return {
-      get: d3.scale.category20(),
-    };
-  },
-]);
-
 sequenceDialogService.factory("SequenceEditor", [
   "colorService",
   function (colorService) {
@@ -181,7 +172,7 @@ dialogService.factory("Dialog", [
         global.seqError = false;
         global.dialogOpen = true;
 
-        if (typeof(seqId) === 'number') {
+        if (typeof (seqId) === 'number') {
           global.id = seqId;
           global.editSeq = angular.copy(sequences[seqId]);
           global.deleteDisable = false;
