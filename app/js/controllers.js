@@ -23,7 +23,7 @@ MinIONApp.controller("SequenceListCtrl", [
   "$window",
   "$filter",
   "colorService",
-  "SequenceEditor",
+  "sequenceEditor",
   "BackendConnection",
   "DataCollection",
   function (
@@ -37,7 +37,7 @@ MinIONApp.controller("SequenceListCtrl", [
     $window,
     $filter,
     colorService,
-    SequenceEditor,
+    sequenceEditor,
     BackendConnection,
     DataCollection
   ) {
@@ -104,7 +104,7 @@ MinIONApp.controller("SequenceListCtrl", [
     };
 
     $scope.editSequence = function (seqId, seqEdit) {
-      const seqEdited = SequenceEditor.editSequence(seqId, seqEdit, $scope.sequences);
+      const seqEdited = sequenceEditor.editSequence(seqId, seqEdit, $scope.sequences);
 
       if (!seqEdited) {
         $scope.global.seqError = true;

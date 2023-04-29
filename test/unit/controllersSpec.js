@@ -87,26 +87,26 @@ describe('MinIONApp services', function () {
 
 	describe('Sequence editor', function () {
 
-		var SequenceEditor
+		var sequenceEditor
 		var editId = -1
 		var editSeq = {}
 		var sequences = [{ 'structure': 'AAA', 'name': 'Strand 1' }]
 
 		beforeEach(module('sequenceDialogService'))
-		beforeEach(inject(function (_SequenceEditor_) {
-			SequenceEditor = _SequenceEditor_
+		beforeEach(inject(function (_sequenceEditor_) {
+			sequenceEditor = _sequenceEditor_
 		}))
 
 		it('should not accept empty values', function () {
 
 			editSeq = { 'structure': '', 'name': '' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			editSeq = { 'structure': 'AAA', 'name': '' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			editSeq = { 'structure': 'AAA', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
 
 		})
 
@@ -114,29 +114,29 @@ describe('MinIONApp services', function () {
 
 			//Only capital letters A, G, C or T
 			editSeq = { 'structure': 'XXX', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			editSeq = { 'structure': 'acg', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			//Only triplets
 
 			editSeq = { 'structure': 'AAA A', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			editSeq = { 'structure': 'AA', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			editSeq = { 'structure': 'AAG CT', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			editSeq = { 'structure': 'AAC AAAT', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
 
 			//This is fine
 
 			editSeq = { 'structure': 'AAC AAA', 'name': 'Strand 2' }
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
 
 
 		})
@@ -145,37 +145,36 @@ describe('MinIONApp services', function () {
 
 			editId = 0 //Editing a strand
 
-			expect(SequenceEditor.counter).toEqual(-1)
+			expect(sequenceEditor.counter).toEqual(-1)
 
 			editSeq = { 'structure': 'AAA', 'name': 'Strand 2' }
 
 			expect(sequences[editId]).not.toEqual(editSeq)
 
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
 
-			expect(SequenceEditor.counter).toEqual(-1)
+			expect(sequenceEditor.counter).toEqual(-1)
 
 			expect(sequences[editId]).toEqual(editSeq)
-
-
 
 			sequences = [{ 'structure': 'AAA', 'name': 'Strand 1' }]
 
 			editId = -1 //Adding a strand
 
-			expect(SequenceEditor.counter).toEqual(-1)
+			expect(sequenceEditor.counter).toEqual(-1)
 
 			editSeq = { 'structure': '', 'name': 'Strand 2' }
 
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
-			expect(SequenceEditor.counter).toEqual(-1)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(false)
+			expect(sequenceEditor.counter).toEqual(-1)
 
 			editSeq = { 'structure': 'AAA', 'name': 'Strand 2' }
 
-			expect(SequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
+			expect(sequenceEditor.editSequence(editId, editSeq, sequences)).toEqual(true)
 
-			expect(SequenceEditor.counter).toEqual(2)
-
+			// The test case bellow was getting a false positive result
+			expect(sequenceEditor.counter).toEqual(-1)
+			expect(sequenceEditor.getCounter()).toEqual(2)
 		})
 
 	})
@@ -231,7 +230,7 @@ describe('MinIONApp controllers', function () {
 	beforeEach(module('dataCollectionService'));
 	beforeEach(module('ngResource'));
 
-	beforeEach(inject(function ($controller, $rootScope, ngDialog, $http, DataChunk, _$interval_, transcriberFilter, sequenceMatcherService, $window, $filter, colorService, SequenceEditor, BackendConnection, DataCollection, $compile, _$httpBackend_) {
+	beforeEach(inject(function ($controller, $rootScope, ngDialog, $http, DataChunk, _$interval_, transcriberFilter, sequenceMatcherService, $window, $filter, colorService, sequenceEditor, BackendConnection, DataCollection, $compile, _$httpBackend_) {
 
 		$interval = _$interval_
 		$httpBackend = _$httpBackend_
