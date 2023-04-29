@@ -1,9 +1,25 @@
-MinIONApp.directive("barsChart", function ($parse) {
-  var directiveDefinitionObject = {
-    restrict: "E",
-    replace: false,
-    scope: { data: "=chartData" },
-    link: function (scope, element, attrs) {
+(function () {
+  'use strict';
+
+  angular
+    .module('MinIONApp')
+    .directive("barsChart", barsChart);
+
+  function barsChart() {
+    var directive = {
+      restrict: "E",
+      replace: false,
+      scope: {
+        data: "=chartData"
+      },
+      link: link,
+    }
+
+    return directive;
+
+    ///////////////////////////////////////
+
+    function link(scope, element, _attrs) {
       var chart = d3
         .select(element[0])
         .append("svg")
@@ -116,7 +132,6 @@ MinIONApp.directive("barsChart", function ($parse) {
         },
         true
       );
-    },
-  };
-  return directiveDefinitionObject;
-});
+    }
+  }
+}());
