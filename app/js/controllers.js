@@ -4,7 +4,7 @@ var MinIONApp = angular.module("MinIONApp", [
   "dataSupplierService",
   "sequenceMatcherService",
   "sequenceDialogService",
-  "colorService",
+  "colors",
   "backendService",
   "ngResource",
   "dataCollectionService",

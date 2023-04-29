@@ -5,8 +5,8 @@ describe('Filters', function() {
 	beforeEach(module('MinIONAppFilters'));
 
 	describe('Big number filter',function() {
-		
-		it('should return human readable number format ', 
+
+		it('should return human readable number format ',
 			inject(function(bigNumberFilter) {
 
 				expect(bigNumberFilter(1)).toEqual(1);
@@ -45,7 +45,7 @@ describe('Filters', function() {
 
 	})
 
-			
+
 })
 
 describe('MinIONApp services', function() {
@@ -57,7 +57,7 @@ describe('MinIONApp services', function() {
 		beforeEach(module('sequenceMatcherService'))
 		beforeEach(inject(function(_SequenceMatcher_){
 			SequenceMatcher = _SequenceMatcher_
-			
+
 		}))
 
 		it('should count occurences of a pattern in a string', function() {
@@ -191,10 +191,10 @@ describe('MinIONApp controllers', function() {
 		svg,
 		$httpBackend,
 		$interval
-	
 
 
-	var strands = 
+
+	var strands =
 [
 	{
 		"name": "Keratin",
@@ -221,23 +221,23 @@ describe('MinIONApp controllers', function() {
 		"rate": 0
 	}
 ]
-	
+
 
 	beforeEach(module('MinIONApp'));
 	beforeEach(module('dataSupplierService'));
 	//beforeEach(module('sequenceMatcherService'));
-	beforeEach(module('colorService'));
+	beforeEach(module('colors'));
 	beforeEach(module('sequenceDialogService'));
 	beforeEach(module('backendService'));
 	beforeEach(module('dataCollectionService'));
 	beforeEach(module('ngResource'));
 
 	beforeEach(inject(function($controller, $rootScope, ngDialog, $http, DataChunk, _$interval_, transcriberFilter, SequenceMatcher, $window, $filter, Color, SequenceEditor, BackendConnection, DataCollection, $compile, _$httpBackend_) {
-		
+
 			$interval = _$interval_
 			$httpBackend = _$httpBackend_
 			scope = $rootScope.$new()
-			controller = $controller('SequenceListCtrl', { $scope: scope })  
+			controller = $controller('SequenceListCtrl', { $scope: scope })
 			element = $compile('<minion-rectangle />')($rootScope);
 			svg = $compile('<div class="paddingHack"><svg class="rect" viewBox="0 0 100 100" style="fill:{{sequence.color}}"><rect x="0" y="0" width="200" height="200" /></svg></div>')($rootScope)
 
@@ -289,12 +289,10 @@ describe('MinIONApp controllers', function() {
 			$interval.flush(scope.rate)
 
 			scope.stopDataCollection()
-			
+
 			expect(scope.global.counter).toEqual(scope.bufferSize*2)
 
 		})
 
 	})
 })
-
-

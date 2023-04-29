@@ -1,8 +1,8 @@
 var dataSupplierService = angular.module("dataSupplierService", []);
 var sequenceMatcherService = angular.module("sequenceMatcherService", []);
-var colorService = angular.module("colorService", []);
+var colors = angular.module("colors", []);
 var sequenceDialogService = angular.module("sequenceDialogService", [
-  "colorService",
+  "colors",
 ]);
 var backendService = angular.module("backendService", ["ngResource"]);
 var dataCollectionService = angular.module("dataCollectionService", [
@@ -97,7 +97,7 @@ sequenceMatcherService.factory("SequenceMatcher", [
   },
 ]);
 
-colorService.factory("Color", [
+colors.factory("Color", [
   function () {
     return {
       get: d3.scale.category20(),
