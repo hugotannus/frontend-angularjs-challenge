@@ -1,10 +1,10 @@
-var sequenceMatcherService = angular.module("sequenceMatcherService", []);
+// var sequenceMatcher = angular.module("sequenceMatcher", []);
 var sequenceDialogService = angular.module("sequenceDialogService", [
   "colors",
 ]);
 var backendService = angular.module("backendService", ["ngResource"]);
 var dataCollectionService = angular.module("dataCollectionService", [
-  "sequenceMatcherService",
+  "sequenceMatcher",
   "MinIONAppFilters",
   "dataSupplierService",
 ]);
@@ -13,9 +13,9 @@ var dialogService = angular.module("dialogService", ["ngDialog"]);
 dataCollectionService.factory("DataCollection", [
   "$interval",
   "transcriberFilter",
-  "SequenceMatcher",
+  "sequenceMatcherService",
   "DataChunk",
-  function ($interval, transcriberFilter, SequenceMatcher, DataChunk) {
+  function ($interval, transcriberFilter, sequenceMatcherService, DataChunk) {
     return {
       interval: "",
       stop: function () {
@@ -29,7 +29,7 @@ dataCollectionService.factory("DataCollection", [
             sequences,
             function (value, key) {
               var d = this[key];
-              d.rate += SequenceMatcher.count(
+              d.rate += sequenceMatcherService.count(
                 transcriberFilter(d.structure),
                 buffer
               );
@@ -38,24 +38,6 @@ dataCollectionService.factory("DataCollection", [
             sequences
           );
         }, rate);
-      },
-    };
-  },
-]);
-
-sequenceMatcherService.factory("SequenceMatcher", [
-  function () {
-    return {
-      count: function (needle, haystack) {
-        var count = 0;
-        var pos = haystack.indexOf(needle);
-
-        while (pos !== -1) {
-          count++;
-          pos = haystack.indexOf(needle, pos + 1);
-        }
-
-        return count;
       },
     };
   },
