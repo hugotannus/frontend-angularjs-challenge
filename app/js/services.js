@@ -1,11 +1,10 @@
-var dataSupplierService = angular.module("dataSupplierService", []);
-var sequenceMatcherService = angular.module("sequenceMatcherService", []);
+// var sequenceMatcher = angular.module("sequenceMatcher", []);
 var sequenceDialogService = angular.module("sequenceDialogService", [
   "colors",
 ]);
 var backendService = angular.module("backendService", ["ngResource"]);
 var dataCollectionService = angular.module("dataCollectionService", [
-  "sequenceMatcherService",
+  "sequenceMatcher",
   "MinIONAppFilters",
   "dataSupplierService",
 ]);
@@ -14,9 +13,9 @@ var dialogService = angular.module("dialogService", ["ngDialog"]);
 dataCollectionService.factory("DataCollection", [
   "$interval",
   "transcriberFilter",
-  "SequenceMatcher",
+  "sequenceMatcherService",
   "DataChunk",
-  function ($interval, transcriberFilter, SequenceMatcher, DataChunk) {
+  function ($interval, transcriberFilter, sequenceMatcherService, DataChunk) {
     return {
       interval: "",
       stop: function () {
@@ -30,7 +29,7 @@ dataCollectionService.factory("DataCollection", [
             sequences,
             function (value, key) {
               var d = this[key];
-              d.rate += SequenceMatcher.count(
+              d.rate += sequenceMatcherService.count(
                 transcriberFilter(d.structure),
                 buffer
               );
@@ -39,58 +38,6 @@ dataCollectionService.factory("DataCollection", [
             sequences
           );
         }, rate);
-      },
-    };
-  },
-]);
-
-dataSupplierService.factory("DataChunk", [
-  function ($interval) {
-    return {
-      weights: [],
-      getBuffer: function (bufferSize, weights) {
-        this.weights = weights;
-        var i;
-        var buffer = " ";
-        for (i = 0; i < bufferSize; i++) buffer += this.getChunk();
-        return buffer;
-      },
-      getChunk: function () {
-        return this.getBit() * 16 + this.getBit() * 4 + this.getBit() * 1 + " ";
-      },
-      getBit: function () {
-        return this.weight(Math.random());
-      },
-      weight: function (randomNumber) {
-        var range = this.weights[0];
-        var i = 1;
-
-        do {
-          if (randomNumber < range) return i - 1;
-
-          range += this.weights[i];
-          i++;
-        } while (i <= this.weights.length);
-
-        return i - 1;
-      },
-    };
-  },
-]);
-
-sequenceMatcherService.factory("SequenceMatcher", [
-  function () {
-    return {
-      count: function (needle, haystack) {
-        var count = 0;
-        var pos = haystack.indexOf(needle);
-
-        while (pos !== -1) {
-          count++;
-          pos = haystack.indexOf(needle, pos + 1);
-        }
-
-        return count;
       },
     };
   },

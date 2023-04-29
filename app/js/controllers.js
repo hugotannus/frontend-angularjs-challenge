@@ -2,7 +2,7 @@
 
 var MinIONApp = angular.module("MinIONApp", [
   "dataSupplierService",
-  "sequenceMatcherService",
+  "sequenceMatcher",
   "sequenceDialogService",
   "colors",
   "backendService",
@@ -19,7 +19,7 @@ MinIONApp.controller("SequenceListCtrl", [
   "DataChunk",
   "$interval",
   "transcriberFilter",
-  "SequenceMatcher",
+  "sequenceMatcherService",
   "$window",
   "$filter",
   "colorService",
@@ -33,7 +33,7 @@ MinIONApp.controller("SequenceListCtrl", [
     DataChunk,
     $interval,
     transcriberFilter,
-    SequenceMatcher,
+    sequenceMatcherService,
     $window,
     $filter,
     colorService,

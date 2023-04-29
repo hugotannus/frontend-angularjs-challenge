@@ -6,16 +6,13 @@
     .factory('colorService', colorService);
 
   function colorService() {
-    const service = {
+    return {
       get: getColor()
     }
-
-    return service;
 
     /////////////////////////////
 
     function getColor() {
-      console.log('getColor');
       return d3.scale.category20();
     }
   }
