@@ -1,8 +1,12 @@
-"use strict";
+(function () {
+  "use strict";
 
-angular
-  .module("MinIONAppFilters", [])
-  .filter("bigNumber", function () {
+  angular
+    .module("MinIONAppFilters", [])
+    .filter("bigNumber", bigNumber)
+    .filter("transcriber", transcriber);
+
+  function bigNumber() {
     return function (input) {
       var order = "";
       var number = 0;
@@ -24,8 +28,9 @@ angular
 
       return number + zeros + " " + order;
     };
-  })
-  .filter("transcriber", function () {
+  }
+
+  function transcriber() {
     return function (input) {
       var groups = input.split(" ");
       var output = " ";
@@ -45,4 +50,5 @@ angular
       });
       return output;
     };
-  });
+  }
+}());
