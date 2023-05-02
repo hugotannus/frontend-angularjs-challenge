@@ -1,46 +1,19 @@
-"use strict";
+(function () {
+  "use strict";
 
-var MinIONApp = angular.module("MinIONApp", [
-  "dataSupplierService",
-  "sequenceMatcher",
-  "sequenceDialogService",
-  "colors",
-  "backendService",
-  "ngResource",
-  "dataCollectionService",
-  "dialogService",
-  "MinIONAppFilters",
-]);
+  angular
+    .module("MinIONApp", ["dataSupplierService", "sequenceMatcher", "sequenceDialogService", "colors",
+      "backendService", "ngResource", "dataCollectionService", "dialogService", "MinIONAppFilters",])
+    .controller("SequenceListCtrl", SequenceListCtrl);
 
-MinIONApp.controller("SequenceListCtrl", [
-  "$scope",
-  "Dialog",
-  "$http",
-  "DataChunk",
-  "$interval",
-  "transcriberFilter",
-  "sequenceMatcherService",
-  "$window",
-  "$filter",
-  "colorService",
-  "sequenceEditor",
-  "BackendConnection",
-  "DataCollection",
-  function (
-    $scope,
-    Dialog,
-    $http,
-    DataChunk,
-    $interval,
-    transcriberFilter,
-    sequenceMatcherService,
-    $window,
-    $filter,
-    colorService,
-    sequenceEditor,
-    BackendConnection,
-    DataCollection
-  ) {
+  SequenceListCtrl.$inject = ["$scope", "Dialog", "$http", "DataChunk", "$interval", "transcriberFilter",
+    "sequenceMatcherService", "$window", "$filter", "colorService", "sequenceEditor", "BackendConnection",
+    "DataCollection"]
+
+  function SequenceListCtrl($scope, Dialog, $http, DataChunk, $interval, transcriberFilter,
+    sequenceMatcherService, $window, $filter, colorService, sequenceEditor, BackendConnection,
+    DataCollection) {
+
     $scope.buffer = 0;
     $scope.prevBuffer = 0;
     $scope.global = {
@@ -123,5 +96,5 @@ MinIONApp.controller("SequenceListCtrl", [
 
       return false;
     };
-  },
-]);
+  };
+}());
